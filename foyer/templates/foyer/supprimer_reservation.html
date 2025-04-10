@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}Supprimer une Réservation{% endblock %}
+
+{% block content %}
+<div class="mt-4">
+    <h1 class="text-center mb-4">Supprimer une Réservation</h1>
+
+    <div class="alert alert-danger w-50 mx-auto text-center">
+        <p>Êtes-vous sûr de vouloir supprimer la réservation pour "{{ reservation.evenement.titre }}" ? Cette action est irréversible.</p>
+    </div>
+
+    <form method="post" class="w-50 mx-auto text-center">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Confirmer la suppression</button>
+        <a href="{% url 'foyer:liste_reservations' %}" class="btn btn-secondary">Annuler</a>
+    </form>
+</div>
+{% endblock %}

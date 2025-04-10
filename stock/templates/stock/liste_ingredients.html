@@ -1,0 +1,11 @@
+<h1>Liste des Ingrédients</h1>
+<a href="{% url 'stock:ajouter_ingredient' %}">Ajouter un ingrédient</a>
+<ul>
+    {% for ingredient in ingredients %}
+        <li>
+            {{ ingredient.nom }} - {{ ingredient.quantite_stock }} {{ ingredient.unite }}
+            <a href="{% url 'stock:modifier_ingredient' ingredient.id %}">Modifier</a>
+            <a href="{% url 'stock:supprimer_ingredient' ingredient.id %}">Supprimer</a>
+        </li>
+    {% endfor %}
+</ul>

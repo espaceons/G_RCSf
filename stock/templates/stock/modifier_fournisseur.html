@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modifier un Fournisseur</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #007BFF;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            color: #007BFF;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>Modifier un Fournisseur</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        
+        <!-- Champ pour le nom du fournisseur -->
+        <label for="id_nom">Nom du fournisseur :</label>
+        {{ form.nom }}
+
+        <!-- Champ pour l'adresse du fournisseur -->
+        <label for="id_adresse">Adresse :</label>
+        {{ form.adresse }}
+
+        <!-- Champ pour le téléphone du fournisseur -->
+        <label for="id_telephone">Téléphone :</label>
+        {{ form.telephone }}
+
+        <!-- Bouton de soumission -->
+        <button type="submit">Enregistrer les modifications</button>
+    </form>
+
+    <!-- Lien de retour -->
+    <a href="{% url 'liste_fournisseurs' %}">Retour à la liste des fournisseurs</a>
+</body>
+</html>

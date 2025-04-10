@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %}Ajouter un Événement{% endblock %}
+
+{% block content %}
+<div class="mt-4">
+    <h1 class="text-center mb-4">Ajouter un Événement</h1>
+
+    <form method="post" class="w-50 mx-auto">
+        {% csrf_token %}
+        
+        <!-- Champ pour le titre -->
+        <div class="mb-3">
+            <label for="id_titre" class="form-label">Titre :</label>
+            {{ form.titre }}
+        </div>
+
+        <!-- Champ pour la date de début -->
+        <div class="mb-3">
+            <label for="id_date_debut" class="form-label">Date de début :</label>
+            {{ form.date_debut }}
+        </div>
+
+        <!-- Champ pour la date de fin -->
+        <div class="mb-3">
+            <label for="id_date_fin" class="form-label">Date de fin :</label>
+            {{ form.date_fin }}
+        </div>
+
+        <!-- Champ pour la description -->
+        <div class="mb-3">
+            <label for="id_description" class="form-label">Description :</label>
+            {{ form.description }}
+        </div>
+
+        <!-- Bouton de soumission -->
+        <div class="text-center">
+            <button type="submit" class="btn btn-success">Ajouter</button>
+            <a href="{% url 'foyer:liste_evenements' %}" class="btn btn-secondary">Annuler</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

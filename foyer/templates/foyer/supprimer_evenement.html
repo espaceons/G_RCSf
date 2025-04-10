@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}Supprimer un Événement{% endblock %}
+
+{% block content %}
+<div class="mt-4">
+    <h1 class="text-center mb-4">Supprimer un Événement</h1>
+
+    <div class="alert alert-danger w-50 mx-auto text-center">
+        <p>Êtes-vous sûr de vouloir supprimer l'événement "{{ evenement.titre }}" ? Cette action est irréversible.</p>
+    </div>
+
+    <form method="post" class="w-50 mx-auto text-center">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Confirmer la suppression</button>
+        <a href="{% url 'foyer:liste_evenements' %}" class="btn btn-secondary">Annuler</a>
+    </form>
+</div>
+{% endblock %}

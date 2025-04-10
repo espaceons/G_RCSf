@@ -1,0 +1,7 @@
+<h1>Modifier un Plat</h1>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Enregistrer les modifications</button>
+</form>
+<a href="{% url 'liste_plats' %}">Retour à la liste des plats</a>

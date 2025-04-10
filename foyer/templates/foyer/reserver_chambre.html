@@ -1,0 +1,21 @@
+<h1>Réserver la Chambre {{ chambre.numero }}</h1>
+<form method="post">
+    {% csrf_token %}
+    <label>Pension :</label>
+    <select name="pension">
+        {% for pension in pensions %}
+            <option value="{{ pension.id }}">{{ pension.get_type_pension_display }} ({{ pension.prix }}€)</option>
+        {% endfor %}
+    </select>
+    <br>
+    <label>Date de début :</label>
+    <input type="date" name="date_debut">
+    <br>
+    <label>Date de fin :</label>
+    <input type="date" name="date_fin">
+    <br>
+    <label>Nom du client :</label>
+    <input type="text" name="nom_client">
+    <br>
+    <button type="submit">Réserver</button>
+</form>

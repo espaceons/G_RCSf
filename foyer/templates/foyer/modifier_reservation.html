@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %}Modifier la Réservation{% endblock %}
+
+{% block content %}
+<div class="mt-4">
+    <h1 class="text-center mb-4">Modifier la Réservation</h1>
+
+    <form method="post" class="w-50 mx-auto">
+        {% csrf_token %}
+        
+        <!-- Champ pour l'événement -->
+        <div class="mb-3">
+            <label for="id_evenement" class="form-label">Événement :</label>
+            {{ form.evenement }}
+        </div>
+
+        <!-- Champ pour le nom du client -->
+        <div class="mb-3">
+            <label for="id_utilisateur" class="form-label">utilisateur :</label>
+            {{ form.nutilisateur }}
+        </div>
+
+        <!-- Champ pour le téléphone -->
+        <div class="mb-3">
+            <label for="id_telephone" class="form-label">Téléphone :</label>
+            {{ form.telephone }}
+        </div>
+
+        <!-- Boutons de soumission et d'annulation -->
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary">Enregistrer les modifications</button>
+            <a href="{% url 'foyer:liste_reservations' %}" class="btn btn-secondary">Annuler</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

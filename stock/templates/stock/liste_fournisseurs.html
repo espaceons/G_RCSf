@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liste des Fournisseurs</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        a {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #007BFF;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        .actions a {
+            margin-right: 10px;
+            color: #007BFF;
+        }
+        .actions a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>Liste des Fournisseurs</h1>
+
+    <!-- Lien pour ajouter un nouveau fournisseur -->
+    <a href="{% url 'ajouter_fournisseur' %}">Ajouter un fournisseur</a>
+
+    <!-- Tableau pour afficher les fournisseurs -->
+    <table>
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Adresse</th>
+                <th>Téléphone</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for fournisseur in fournisseurs %}
+                <tr>
+                    <td>{{ fournisseur.nom }}</td>
+                    <td>{{ fournisseur.adresse }}</td>
+                    <td>{{ fournisseur.telephone }}</td>
+                    <td class="actions">
+                        <a href="{% url 'modifier_fournisseur' fournisseur.id %}">Modifier</a>
+                        <a href="{% url 'supprimer_fournisseur' fournisseur.id %}">Supprimer</a>
+                    </td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="4">Aucun fournisseur enregistré.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

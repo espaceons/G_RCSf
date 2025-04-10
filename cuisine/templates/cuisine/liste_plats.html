@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liste des Plats</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        a {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #007BFF;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        .actions a {
+            margin-right: 10px;
+            color: #007BFF;
+        }
+        .actions a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>Liste des Plats</h1>
+
+    <!-- Lien pour ajouter un nouveau plat -->
+    <a href="{% url 'ajouter_plat' %}">Ajouter un plat</a>
+
+    <!-- Tableau pour afficher les plats -->
+    <table>
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Description</th>
+                <th>Prix</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for plat in plats %}
+                <tr>
+                    <td>{{ plat.nom }}</td>
+                    <td>{{ plat.description|truncatechars:50 }}</td>
+                    <td>{{ plat.prix }} €</td>
+                    <td class="actions">
+                        <a href="{% url 'modifier_plat' plat.id %}">Modifier</a>
+                        <a href="{% url 'supprimer_plat' plat.id %}">Supprimer</a>
+                    </td>
+                </tr>
+            {% empty %}
+                <tr><td colspan="4">Aucun plat enregistré.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

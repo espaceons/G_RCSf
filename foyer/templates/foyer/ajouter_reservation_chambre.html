@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajouter une Réservation de Chambre</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #28a745; /* Vert pour le bouton d'ajout */
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838; /* Vert plus foncé au survol */
+        }
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            color: #007BFF;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>Ajouter une Réservation de Chambre</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        
+        <!-- Champ pour la chambre -->
+        <label for="id_chambre">Chambre :</label>
+        {{ form.chambre }}
+
+        <!-- Champ pour la pension -->
+        <label for="id_pension">Pension :</label>
+        {{ form.pension }}
+
+        <!-- Champ pour la date de début -->
+        <label for="id_date_debut">Date de début :</label>
+        {{ form.date_debut }}
+
+        <!-- Champ pour la date de fin -->
+        <label for="id_date_fin">Date de fin :</label>
+        {{ form.date_fin }}
+
+        <!-- Champ pour le nom du client -->
+        <label for="id_nom_client">Nom du client :</label>
+        {{ form.nom_client }}
+
+        <!-- Bouton de soumission -->
+        <button type="submit">Ajouter</button>
+    </form>
+
+    <!-- Lien de retour -->
+    <a href="{% url 'liste_reservations_chambres' %}">Retour à la liste des réservations de chambres</a>
+</body>
+</html>

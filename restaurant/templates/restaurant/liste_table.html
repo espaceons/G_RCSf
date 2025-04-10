@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Liste des Tables</title>
+</head>
+<body>
+    <h1>Liste des Tables</h1>
+    <ul>
+        {% for table in tables %}
+            <li>Table {{ table.numero }} - Capacité : {{ table.capacite }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

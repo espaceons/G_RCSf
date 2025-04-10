@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block title %}Liste des Chambres{% endblock %}
+
+{% block content %}
+<div class="mt-4">
+    <h1 class="text-center mb-4">Liste des Chambres</h1>
+
+    <!-- Lien vers le Dashboard -->
+    <div class="text-center mb-4">
+        <a href="{% url 'foyer:sous_dashboard_foyer' %}" class="btn btn-primary">Retour au Tableau de Bord Chambre</a>
+    </div>
+
+    <!-- Bouton pour ajouter une chambre -->
+    <div class="mb-4 text-end">
+        <a href="{% url 'foyer:ajouter_chambre' %}" class="btn btn-success">Ajouter une Chambre</a>
+    </div>
+
+    <!-- Tableau des chambres -->
+    <table class="table table-striped table-bordered">
+        <thead class="table-dark">
+            <tr>
+                <th>Numéro</th>
+                <th>Capacité</th>
+                <th>Statut</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for chambre in chambres %}
+                <tr>
+                    <td>{{ chambre.numero }}</td>
+                    <td>{{ chambre.capacite }}</td>
+                    <td>{{ chambre.get_statut_display }}</td>
+                    <td>
+                        <a href="{% url 'foyer:modifier_chambre' chambre.id %}" class="btn btn-warning btn-sm">Modifier</a>
+                        <a href="{% url 'foyer:supprimer_chambre' chambre.id %}" class="btn btn-danger btn-sm">Supprimer</a>
+                    </td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="4" class="text-center">Aucune chambre enregistrée.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
