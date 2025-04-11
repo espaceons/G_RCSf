@@ -1,6 +1,13 @@
+
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Evenement
 from foyer.forms import EvenementForm
+from datetime import date
+from django.contrib import messages
+
+from django.contrib.auth.decorators import login_required
+from .models import Reservation
+from .forms import ReservationChambreForm, ReservationForm
 
 #Application Evenement :
 #-------------------------
@@ -49,9 +56,7 @@ def supprimer_evenement(request, evenement_id):
 
 # Liste des réservations evenement
 
-from django.contrib.auth.decorators import login_required
-from .models import Reservation
-from .forms import ReservationChambreForm, ReservationForm
+
 
 
 
@@ -63,24 +68,35 @@ def liste_reservations(request):
 # Vue pour ajouter une réservation pour un événement spécifique
 
 @login_required
-def ajouter_reservation(request, evenement_id):
-    # Récupérer l'événement correspondant à l'ID fourni
-    evenement = get_object_or_404(Evenement, id=evenement_id)
-    
+def ajouter_reservation(request):
+    # Filtrer les événements dont la date de début est future ou égale à aujourd'hui
+    evenements_futurs = Evenement.objects.filter(date_debut__gte=date.today())
+
     if request.method == 'POST':
-        # Si le formulaire est soumis, valider les données
-        form = ReservationForm(request.POST)
-        if form.is_valid():
-            reservation = form.save(commit=False)  # Ne pas sauvegarder immédiatement
-            reservation.evenement = evenement  # Associer l'événement à la réservation
-            reservation.save()  # Sauvegarder la réservation
-            return redirect('liste_reservations')  # Rediriger vers la liste des réservations
-    else:
-        # Afficher un formulaire vide avec l'événement pré-rempli
-        form = ReservationForm()
-    
-    # Rendre le template avec le formulaire et l'événement
-    return render(request, 'foyer/ajouter_reservation.html', {'form': form, 'evenement': evenement})
+        telephone = request.POST.get('telephone') # Récupération du numéro de téléphone
+        evenement_ids = request.POST.getlist('evenements') #Recuperation des IDs des evenement
+        
+        if not request.user.is_authenticated: #Verification de l'authentification.
+            messages.error(request, "Vous devez être connecté pour faire une réservation.")
+            return redirect('login') #Redirection vers la page login
+
+        for evenement_id in evenement_ids:
+            evenement = Evenement.objects.get(id=evenement_id)
+            
+            # Vérifier si une réservation existe déjà
+            if Reservation.objects.filter(utilisateur=request.user, evenement=evenement).exists():
+                messages.error(request, f"Vous avez déjà une réservation pour l'événement '{evenement.titre}'.")
+                continue  # Passer à l'événement suivant
+            Reservation.objects.create(
+                evenement=evenement,
+                utilisateur=request.user #Recuperation de l'utilisateur
+            )
+        return redirect('foyer:liste_reservations')
+    context = {
+        'evenements_futurs': evenements_futurs,
+        'form' : ReservationForm()
+    }
+    return render(request, 'foyer/ajouter_reservation.html', context)
 
 # Vue pour supprimer une réservation evenement:
 
@@ -92,7 +108,7 @@ def supprimer_reservation(request, reservation_id):
     if request.method == 'POST':
         # Si la méthode est POST, supprimer la réservation
         reservation.delete()
-        return redirect('liste_reservations')  # Rediriger vers la liste des réservations
+        return redirect('foyer:liste_reservations')  # Rediriger vers la liste des réservations
     
     # Afficher un message de confirmation avant la suppression
     return render(request, 'foyer/supprimer_reservation.html', {'reservation': reservation})

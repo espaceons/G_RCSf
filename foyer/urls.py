@@ -7,6 +7,7 @@ app_name = 'foyer'
 urlpatterns = [
     # Sous-dashboard de Foyer
     path('', views.sous_dashboard_foyer, name='sous_dashboard_foyer'),
+    
     # Gestion des événements
     path('evenements/', views.liste_evenements, name='liste_evenements'),
     path('evenements/ajouter/', views.ajouter_evenement, name='ajouter_evenement'),
@@ -15,7 +16,7 @@ urlpatterns = [
 
     # Gestion des réservations d'événements
     path('reservations/', views.liste_reservations, name='liste_reservations'),
-    path('reservations/ajouter/<int:evenement_id>/', views.ajouter_reservation, name='ajouter_reservation'),
+    path('reservations/ajouter/', views.ajouter_reservation, name='ajouter_reservation'),
     path('reservations/supprimer/<int:reservation_id>/', views.supprimer_reservation, name='supprimer_reservation'),
     path('reservations/modifier/<int:reservation_id>/', views.modifier_reservation, name='modifier_reservation'),
 

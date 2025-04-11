@@ -8,7 +8,7 @@
 
     <!-- Lien vers le Dashboard -->
     <div class="text-center mb-4">
-        <a href="{% url 'dashboard' %}" class="btn btn-primary">Retour au Tableau de Bord</a>
+        <a href="{% url 'foyer:sous_dashboard_foyer' %}" class="btn btn-primary">Retour au Tableau de Bord</a>
     </div>
 
     <!-- Bouton pour ajouter une réservation -->
@@ -21,7 +21,7 @@
         <thead class="table-dark">
             <tr>
                 <th>Événement</th>
-                <th>utilisateur</th>
+                <th>Nom du Client</th>
                 <th>Téléphone</th>
                 <th>Actions</th>
             </tr>
@@ -30,7 +30,7 @@
             {% for reservation in reservations %}
                 <tr>
                     <td>{{ reservation.evenement.titre }}</td>
-                    <td>{{ reservation.utilisateur }}</td>
+                    <td>{{ reservation.nom_client }}</td>
                     <td>{{ reservation.telephone }}</td>
                     <td>
                         <a href="{% url 'foyer:modifier_reservation' reservation.id %}" class="btn btn-warning btn-sm">Modifier</a>

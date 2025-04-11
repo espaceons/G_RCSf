@@ -1,3 +1,4 @@
+from django.utils import timezone
 from django import forms
 from .models import Evenement, Reservation, Chambre, ReservationChambre, PlatJournalier
 
@@ -20,10 +21,21 @@ class EvenementForm(forms.ModelForm):
             raise forms.ValidationError("La date de début doit être antérieure ou égale à la date de fin.")
 
 # Formulaire pour les réservations d'événements
+
 class ReservationForm(forms.ModelForm):
     class Meta:
         model = Reservation
-        fields = ['evenement', 'utilisateur', 'telephone']
+        fields = ['telephone', 'evenement']
+
+    def __init__(self, *args, **kwargs):
+        super(ReservationForm, self).__init__(*args, **kwargs)
+        # Filtrer les événements en cours directement dans le queryset du champ
+        self.fields['evenement'].queryset = Evenement.objects.filter(
+            date_debut__lte=timezone.now(),
+            date_fin__gte=timezone.now()
+        )
+        self.fields['evenement'].label = "Sélectionnez un Événement" #Label corrigé
+        self.fields['evenement'].widget = forms.Select() #Widget corrigé
 
 # Formulaire pour les chambres
 class ChambreForm(forms.ModelForm):

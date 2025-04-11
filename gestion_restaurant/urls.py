@@ -22,8 +22,8 @@ from django.conf.urls.static import static
 from . import views
 
 urlpatterns = [
-    path('', views.dashboard, name='dashboard'),  # Page principale (dashboard)
-    path('auth/', include('authentification.urls')),  # Authentification
+    path('dashboard/', views.dashboard, name='dashboard'),  # Page principale (dashboard)
+    path('', include('authentification.urls')),  # Authentification
     path('admin/', admin.site.urls),
     path('restaurant/', include('restaurant.urls')),
     path('cuisine/', include('cuisine.urls')),

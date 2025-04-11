@@ -26,7 +26,7 @@ def connexion(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect('accueil')  # Redirige vers la page d'accueil ou une autre page
+            return redirect('dashboard')  # Redirige vers la page d'accueil ou une autre page
         else:
             return render(request, 'authentification/connexion.html', {'error': 'Identifiants invalides'})
     return render(request, 'authentification/connexion.html')
