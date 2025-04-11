@@ -11,6 +11,7 @@ class Utilisateur(AbstractUser):
 
     # Type d'utilisateur (stagiaire, apprenti, etc.)
     type_utilisateur = models.CharField(max_length=20, choices=TYPE_UTILISATEUR_CHOICES, blank=True, null=True)
+    telephone = models.CharField(max_length=15, blank=True, null=True)
 
     def __str__(self):
         """

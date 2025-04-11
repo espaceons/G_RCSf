@@ -1,58 +1,10 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tableau de Bord</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            background-color: #f9f9f9;
-        }
-        h1 {
-            color: #333;
-            text-align: center;
-        }
-        .app-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            justify-content: center;
-        }
-        .app-card {
-            background-color: #fff;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            padding: 20px;
-            width: 300px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            text-align: center;
-        }
-        .app-card h2 {
-            margin-top: 0;
-            color: #007BFF;
-        }
-        .app-card p {
-            font-size: 14px;
-            color: #666;
-        }
-        .app-card a {
-            display: inline-block;
-            margin-top: 15px;
-            padding: 10px 15px;
-            background-color: #007BFF;
-            color: white;
-            text-decoration: none;
-            border-radius: 4px;
-            transition: background-color 0.3s ease;
-        }
-        .app-card a:hover {
-            background-color: #0056b3;
-        }
-    </style>
-</head>
-<body>
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Tableau de Bord{% endblock %}
+
+{% block content %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     <h1>Tableau de Bord</h1>
     <div class="app-container">
         {% for app in applications %}
@@ -63,5 +15,4 @@
             </div>
         {% endfor %}
     </div>
-</body>
-</html>
+{% endblock %}
